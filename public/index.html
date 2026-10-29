@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Manage your contacts in one simple contact book.">
+  <title>Contact Book</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Contact Book home">
+        <span class="brand-icon" aria-hidden="true">CB</span>
+        <span>Contact Book</span>
+      </a>
+      <span class="topbar-note">Your people, all in one place</span>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">PERSONAL CONTACT MANAGER</p>
+          <h1>Keep every connection close.</h1>
+          <p class="hero-copy">Save, organize, find, and update your contacts with ease.</p>
+        </div>
+        <div class="hero-mark" aria-hidden="true">✦</div>
+      </section>
+
+      <section class="summary-row" aria-label="Contact summary">
+        <div class="summary-card">
+          <span class="summary-icon">♧</span>
+          <div><span class="summary-label">Total contacts</span><strong id="totalCount">0</strong></div>
+        </div>
+        <div class="summary-card">
+          <span class="summary-icon violet">⌕</span>
+          <div><span class="summary-label">Showing</span><strong id="showingCount">0</strong></div>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <aside class="panel form-panel">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">CONTACT DETAILS</p>
+              <h2 id="formTitle">Add a contact</h2>
+            </div>
+            <span class="heading-symbol" aria-hidden="true">＋</span>
+          </div>
+
+          <div id="formMessage" class="message" role="status" aria-live="polite"></div>
+          <form id="contactForm">
+            <label for="name">Full name <span class="required">*</span></label>
+            <input id="name" name="name" type="text" maxlength="100" placeholder="e.g. Alex Johnson" required>
+
+            <label for="phone">Phone number</label>
+            <input id="phone" name="phone" type="tel" maxlength="30" placeholder="e.g. +91 98765 43210">
+
+            <label for="email">Email address</label>
+            <input id="email" name="email" type="email" maxlength="254" placeholder="e.g. alex@example.com">
+
+            <label for="contact_group">Group</label>
+            <select id="contact_group" name="contact_group">
+              <option value="Family">Family</option>
+              <option value="Friends">Friends</option>
+              <option value="Work">Work</option>
+              <option value="College">College</option>
+              <option value="Other" selected>Other</option>
+            </select>
+
+            <div class="form-actions">
+              <button class="button primary" type="submit" id="saveButton">Save contact</button>
+              <button class="button secondary hidden" type="button" id="cancelEdit">Cancel</button>
+            </div>
+          </form>
+          <p class="form-footnote"><span class="required">*</span> Name is required.</p>
+        </aside>
+
+        <section class="panel contacts-panel">
+          <div class="section-heading contacts-heading">
+            <div>
+              <p class="eyebrow">YOUR ADDRESS BOOK</p>
+              <h2>All contacts <span class="title-count" id="headingCount">0</span></h2>
+            </div>
+          </div>
+
+          <div class="filters">
+            <label class="search-box" for="searchInput">
+              <span aria-hidden="true">⌕</span>
+              <input id="searchInput" type="search" placeholder="Search name, phone, email..." autocomplete="off">
+            </label>
+            <select id="groupFilter" aria-label="Filter by group">
+              <option value="all">All groups</option>
+              <option value="Family">Family</option>
+              <option value="Friends">Friends</option>
+              <option value="Work">Work</option>
+              <option value="College">College</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div id="pageMessage" class="message" role="status" aria-live="polite"></div>
+          <div id="contactsList" class="contacts-list">
+            <div class="loading-state">Loading your contacts…</div>
+          </div>
+          <p class="list-footer">Contact details are stored in your Supabase database.</p>
+        </section>
+      </section>
+    </main>
+
+    <footer>Contact Book <span>•</span> Built with HTML, CSS, JavaScript, Node.js, Express and Supabase</footer>
+  </div>
+
+  <dialog id="deleteDialog" class="delete-dialog">
+    <h2>Delete this contact?</h2>
+    <p id="deletePrompt">This action cannot be undone.</p>
+    <div class="dialog-actions">
+      <button class="button secondary" id="keepContact" type="button">Cancel</button>
+      <button class="button danger" id="confirmDelete" type="button">Delete contact</button>
+    </div>
+  </dialog>
+</body>
+</html>
